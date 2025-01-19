@@ -1,1 +1,54 @@
-/* This is a sample CSS file. In the future, it will include the project's stylesheet. */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+  }
+  
+
+  header {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+  }
+  
+ 
+  nav {
+    display: flex;
+    justify-content: center;
+    background: #444;
+    padding: 0.5rem;
+  }
+  
+  nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 1rem;
+  }
+  
+  nav a:hover {
+    color: #f4f4f4;
+    text-decoration: underline;
+  }
+  
+ 
+  main {
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  main h1 {
+    color: #333;
+  }
+  
+
+  footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+  }
