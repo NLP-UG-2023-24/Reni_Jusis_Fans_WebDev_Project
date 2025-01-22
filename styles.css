@@ -58,3 +58,13 @@ body {
     width: 100%;
     bottom: 0;
   }
+
+  hr {
+    height: 5px;
+    background-color: rgb(190, 212, 238);
+    border: none;
+  }
+  
+  .bottom-line {
+    margin-top: 25px;
+  }
