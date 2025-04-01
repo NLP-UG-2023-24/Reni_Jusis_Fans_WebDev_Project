@@ -1,104 +1,26 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: background-color 0.3s, color 0.3s;
+}
+
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    background-image: url("background.jpg");
-  }
-  
-
-  header {
-    background: #333;
-    color: #fff;
-    text-align: center;
-    padding: 1rem 0;
-  }
-  
- 
-  nav {
-    display: flex;
-    justify-content: center;
-    background: #444;
-    padding: 0.5rem;
-  }
-  
-  nav a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 1rem;
-  }
-  
-  nav a:hover {
-    color: #f4f4f4;
-    text-decoration: underline;
-  }
-  
- 
-  main {
+    font-family: Futura, 'Helvetica Neue', 'Segoe UI', Tahoma, Verdana, sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+    min-height: 100vh;
     padding: 2rem;
-    text-align: center;
-  }
-  
-  main h1 {
-    color: #333;
-    font-size: 40px;
-    margin-top: 0;
-    margin-bottom: 15px;
-    text-align: center;
+}
 
-  }
-  
-
-  footer {
-    background: #333;
-    color: #fff;
-    text-align: center;
-    padding: 1rem 0;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-  }
-
-  hr {
-    height: 5px;
-    background-color: rgb(190, 212, 238);
-    border: none;
-  }
-  
-  .bottom-line {
-    margin-top: 25px;
-  }
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 0;
-  }
-
-  h1 {
-    text-align: center;
-    margin: 30px 0;
-  }
-
-  .grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 20px; 
-    max-width: 800px; 
+.container {
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
-  }
+}
 
-  .grid-container div {
-    background-color: #fff;
-    padding: 20px;
-    text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-
-  .grid-container div:nth-child(4),
-  .grid-container div:nth-child(5) {
-    grid-column: span 1; 
-  }
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
