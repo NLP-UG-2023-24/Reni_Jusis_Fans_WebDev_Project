@@ -1,3 +1,25 @@
+:root {
+    --primary: #4a6bff;
+    --secondary: #ff6b6b;
+    --background: #f8f9fa;
+    --card-bg: #ffffff;
+    --text: #333333;
+    --border: #e0e0e0;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --success: #28a745;
+}
+
+[data-theme="dark"] {
+    --primary: #6c7eff;
+    --secondary: #ff7e7e;
+    --background: #121212;
+    --card-bg: #1e1e1e;
+    --text: #e0e0e0;
+    --border: #333333;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --success: #48c774;
+}
+
 * {
     margin: 0;
     padding: 0;
