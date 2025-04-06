@@ -13,8 +13,96 @@
         <button class="theme-toggle" aria-label="Toggle dark mode"></button>
       </header>
       <div class="grid">
-        <!-- widgets will appear here at some point -->
-      </div>
+    <div class="widget">
+        <div class="widget-header">
+            <h2 class="widget-title">Date & Time</h2>
+            <!--
+            <svg class="widget-icon" viewBox="0 0 24 24">
+                <path d="XXX"></path>
+            </svg>
+            -->
+        </div>
+        <div class="datetime-display" id="time"></div>
+        <div class="date-display" id="date"></div>
     </div>
+
+    <div class="widget">
+        <div class="widget-header">
+            <h2 class="widget-title">Holidays</h2>
+            <!--
+            <svg class="widget-icon" viewBox="0 0 24 24">
+                <path d="XXX"></path>
+            </svg>
+            -->
+        </div>
+        <select class="country-selector" id="country-selector">
+            <option value="">Select a country or region</option>
+        </select>
+        <ul class="holiday-list" id="holiday-list"></ul>
+    </div>
+
+    <div class="widget">
+        <div class="widget-header">
+            <h2 class="widget-title">Fun Fact</h2>
+            <!--
+            <svg class="widget-icon" viewBox="0 0 24 24">
+                <path d="XXX"></path>
+            </svg>
+            -->
+        </div>
+        <p class="fun-fact" id="fun-fact">Loading today's fun fact...</p>
+    </div>
+
+    <div class="widget">
+        <div class="widget-header">
+            <h2 class="widget-title">Calendar Conversion</h2>
+            <!--
+            <svg class="widget-icon" viewBox="0 0 24 24">
+                <path d="XXX"></path>
+            </svg>
+            -->
+        </div>
+        <input type="date" id="gregorian-date" class="calendar-input">
+        <select id="calendar-type" class="calendar-input">
+            <option value="hebrew">Hebrew</option>
+            <option value="islamic">Islamic</option>
+            <option value="chinese">Chinese</option>
+            <option value="persian">Persian</option>
+        </select>
+        <div class="calendar-result" id="calendar-result">
+            Choose a date to convert
+        </div>
+    </div>
+
+    <div class="widget">
+        <div class="widget-header">
+            <h2 class="widget-title">Weather</h2>
+            <!--
+            <svg class="widget-icon" viewBox="0 0 24 24">
+                <path d="XXX"></path> this will be changed once the icons are ready
+            </svg>
+            -->
+        </div>
+        <div class="weather-info">
+            <div class="weather-temp" id="weather-temp">--°C</div>
+            <div id="weather-condition">Loading the weather widget...</div>
+            <div class="weather-details" id="weather-details"></div>
+        </div>
+        <div class="forecast" id="forecast"></div>
+    </div>
+
+    <div class="widget">
+        <div class="widget-header">
+            <h2 class="widget-title">Name Days</h2>
+            <!--
+            <svg class="widget-icon" viewBox="0 0 24 24">
+                <path d="XXX"></path>
+            </svg>
+            -->
+        </div>
+        <ul class="nameday-list" id="nameday-list"></ul>
+    </div>
+</div>
+
   </body>
 </html>
