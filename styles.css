@@ -9,10 +9,10 @@
     --success: #28a745;
 }
 
-.layout {
+/* .layout {
   display: flex;
   height: 100vh;
-}
+} */
 
 [data-theme="dark"] {
     --primary: #6c7eff;
