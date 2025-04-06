@@ -265,6 +265,22 @@ transform: translateX(24px);
   border-bottom: none;
 }
 
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .widget {
+        padding: 1rem;
+    }
+}
+
 .tab-button {
   padding: 15px 20px;
   border: none;
