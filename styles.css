@@ -141,6 +141,130 @@ transform: translateX(24px);
   fill: var(--primary);
 }
 
+.datetime-display {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.date-display {
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--text);
+  opacity: 0.8;
+}
+
+.country-selector {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background-color: var(--card-bg);
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+.holiday-list {
+  list-style: none;
+  margin-top: 1rem;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.holiday-item {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+}
+
+.holiday-item:last-child {
+  border-bottom: none;
+}
+
+.fun-fact {
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.calendar-input {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background-color: var(--card-bg);
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.calendar-result {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: var(--background);
+  border-radius: 6px;
+  border: 1px dashed var(--border);
+}
+
+.weather-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.weather-temp {
+  font-size: 2rem;
+  margin: 1rem 0;
+}
+
+.weather-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.weather-detail {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.weather-detail svg {
+  margin-right: 0.5rem;
+  fill: var(--text);
+  width: 16px;
+  height: 16px;
+}
+
+.forecast {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  overflow-x: auto;
+  gap: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.forecast-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 50px;
+}
+
+.nameday-list {
+  list-style: none;
+}
+
+.nameday-item {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.nameday-item:last-child {
+  border-bottom: none;
+}
+
 .tab-button {
   padding: 15px 20px;
   border: none;
