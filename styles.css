@@ -281,7 +281,7 @@ transform: translateX(24px);
     }
 }
 
-.tab-button {
+/* .tab-button {
   padding: 15px 20px;
   border: none;
   background: none;
@@ -311,3 +311,4 @@ transform: translateX(24px);
 .tab-content.active {
   display: block;
 }
+ */
