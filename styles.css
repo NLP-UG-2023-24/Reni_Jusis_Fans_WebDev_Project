@@ -103,6 +103,44 @@ transform: translateX(24px);
     align-items: center;
     margin-bottom: 2rem;
 }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.widget {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow);
+  padding: 1.5rem;
+  overflow: hidden;
+  height: 100%;
+  border: 1px solid var(--border);
+}
+
+.widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.widget-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--primary);
+}
+
+.widget-icon {
+  width: 24px;
+  height: 24px;
+  fill: var(--primary);
+}
+
 .tab-button {
   padding: 15px 20px;
   border: none;
