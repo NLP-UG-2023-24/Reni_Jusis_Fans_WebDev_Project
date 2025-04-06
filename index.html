@@ -4,14 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
-    <title>Reni Jusis Test</title>
+    <title>InfoSphere</title>
   </head>
   <body>
-    <div class="container">
+    <div class="layout">
+      <div class="sidebar">
+        <button class="tab-button active" onclick="openTab(event, 'home')">Home</button>
+        <button class="tab-button" onclick="openTab(event, 'about')">About Us</button>
+      </div>
+      
+    <div class="main_content">
       <header class="header">
-        <h1 class="title">Reni Jusis Startpage</h1>
+        <h1 class="title">InfoSphere</h1>
         <button class="theme-toggle" aria-label="Toggle dark mode"></button>
       </header>
+      <div id="home" class="tab-content active">
       <div class="grid">
     <div class="widget">
         <div class="widget-header">
@@ -103,6 +110,22 @@
         <ul class="nameday-list" id="nameday-list"></ul>
     </div>
 </div>
+</div>
+
+      <div id="about" class="tab-content">
+          <h2>About Us</h2>
+          <p>
+            Welcome to <strong>InfoSphere</strong> — your all-in-one hub for daily knowledge and inspiration.
+            This project brings together tools like date & time, holidays, fun facts, weather, and more in one clean interface.
+          </p>
+          <p>
+            We aim to build a constantly evolving platform to inform, entertain, and inspire curiosity every day.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
 
   </body>
 </html>
