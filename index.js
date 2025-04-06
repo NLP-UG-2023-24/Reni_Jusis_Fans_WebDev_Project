@@ -25,3 +25,7 @@ prefersDarkMode.addEventListener('change', (e) => {
     setTheme(e.matches);
   }
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    initTheme();
+});
