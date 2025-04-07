@@ -26,6 +26,25 @@ prefersDarkMode.addEventListener('change', (e) => {
   }
 });
 
+function initDateTimeClock() {
+  updateDateTime();
+  setInterval(updateDateTime, 1000);
+}
+
+function initFunFact() {
+  const funFactWidget = document.getElementById('fun-fact');
+  fetch('https://uselessfacts.jsph.pl/random.json?language=en')
+    .then(response => response.json())
+    .then(data => {
+      funFactWidget.textContent = `${data.text}`;
+    })
+    .catch(() => {
+      funFactWidget.textContent = 'We couldn\'t retrieve the fun fact. Please try again later.';
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     initTheme();
+    initDateTimeClock();
+    initFunFact();
 });
