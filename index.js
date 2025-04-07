@@ -44,7 +44,7 @@ function initDateTimeClock() {
 
 function initFunFact() {
   const funFactWidget = document.getElementById('fun-fact');
-  fetch('https://uselessfacts.jsph.pl/random.json?language=en')
+  fetch('https://uselessfacts.jsph.pl/api/v2/facts/random?language=en')
     .then(response => response.json())
     .then(data => {
       funFactWidget.textContent = `${data.text}`;
