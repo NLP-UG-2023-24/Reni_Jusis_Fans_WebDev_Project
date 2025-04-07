@@ -26,6 +26,17 @@ prefersDarkMode.addEventListener('change', (e) => {
   }
 });
 
+function updateDateTime() {
+  const now = new Date();
+  document.getElementById('time').textContent = now.toLocaleTimeString();
+  document.getElementById('date').textContent = now.toLocaleDateString(undefined, {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}
+
 function initDateTimeClock() {
   updateDateTime();
   setInterval(updateDateTime, 1000);
