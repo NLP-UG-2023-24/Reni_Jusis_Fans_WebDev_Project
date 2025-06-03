@@ -28,7 +28,7 @@
 }
 
 body {
-  font-family: Futura, 'Helvetica Neue', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Futura', 'Jost', 'Helvetica Neue', 'Segoe UI', 'Tahoma', 'Arial';
   background-color: var(--background);
   color: var(--text);
   min-height: 100vh;
