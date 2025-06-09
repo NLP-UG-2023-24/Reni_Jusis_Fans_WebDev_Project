@@ -146,6 +146,7 @@ body {
     width: 24px;
     height: 24px;
     fill: var(--primary);
+    stroke: var(--primary);
 }
 
 .datetime-display {
@@ -345,6 +346,12 @@ body {
     .widget {
         padding: 1rem;
     }
+
+    .accessibility-controls {
+        flex-wrap: wrap; 
+        justify-content: flex-start;
+        gap: 6px;
+    }
 }
 
 .footer {
@@ -420,4 +427,16 @@ body {
         transform: translateY(0);
         opacity: 1;
     }
+}
+
+/*
+  disable animations for users with "reduce motion" setting on
+*/
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }
