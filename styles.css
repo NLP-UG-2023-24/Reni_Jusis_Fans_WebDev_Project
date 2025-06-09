@@ -335,17 +335,16 @@ body {
     .grid {
         grid-template-columns: 1fr;
     }
-}
 
+    .header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
 
-.header {
-    flex-direction: column;
-    gap: 1rem;
-    align-items: flex-start;
-}
-
-.widget {
-    padding: 1rem;
+    .widget {
+        padding: 1rem;
+    }
 }
 
 .footer {
