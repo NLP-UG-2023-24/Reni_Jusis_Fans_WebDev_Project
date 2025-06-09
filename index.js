@@ -1,30 +1,96 @@
-const themeToggle = document.querySelector('.theme-toggle');
-const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
+// accessibility: dark mode, contrast, grayscale, font size
 
-function setTheme(isDark) {
-    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+function initAccessibility() {
+    const FONT_STEP = 1; // 1px change per click
+    const MIN_FONT_SIZE = 12;
+    const MAX_FONT_SIZE = 24;
+    const DEFAULT_FONT_SIZE = 16;
+
+    const btnDarkMode = document.getElementById('acc-dark-mode');
+    const btnHighContrast = document.getElementById('acc-high-contrast');
+    const btnFontIncrease = document.getElementById('acc-font-increase');
+    const btnFontDecrease = document.getElementById('acc-font-decrease');
+    const btnFontReset = document.getElementById('acc-font-reset');
+    const btnGrayscale = document.getElementById('acc-grayscale');
+    const root = document.documentElement;
+
+    // localstorage settings
+    let isDarkMode = localStorage.getItem('isDarkMode') ? localStorage.getItem('isDarkMode') === 'true' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    let isHighContrast = localStorage.getItem('isHighContrast') === 'true';
+    let isGrayscale = localStorage.getItem('isGrayscale') === 'true';
+    let fontSize = parseInt(localStorage.getItem('fontSize') || DEFAULT_FONT_SIZE, 10);
+
+    const applyTheme = () => {
+        if (isHighContrast) {
+            root.setAttribute('data-theme', 'high-contrast');
+            btnHighContrast.classList.add('active');
+            btnDarkMode.classList.remove('active');
+        } else {
+            root.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+            btnHighContrast.classList.remove('active');
+            btnDarkMode.classList.toggle('active', isDarkMode);
+        }
+    };
+
+    const applyEffects = () => {
+        root.setAttribute('data-effect', isGrayscale ? 'grayscale' : '');
+        btnGrayscale.classList.toggle('active', isGrayscale);
+    };
+
+    const applyFontSize = () => {
+        root.style.setProperty('--base-font-size', `${fontSize}px`);
+    };
+
+    btnDarkMode.addEventListener('click', () => {
+        isDarkMode = !isDarkMode;
+        localStorage.setItem('isDarkMode', isDarkMode);
+        if (isHighContrast) {
+            isHighContrast = false;
+            localStorage.setItem('isHighContrast', isHighContrast);
+        }
+        applyTheme();
+    });
+
+    btnHighContrast.addEventListener('click', () => {
+        isHighContrast = !isHighContrast;
+        localStorage.setItem('isHighContrast', isHighContrast);
+        applyTheme();
+    });
+
+    btnGrayscale.addEventListener('click', () => {
+        isGrayscale = !isGrayscale;
+        localStorage.setItem('isGrayscale', isGrayscale);
+        applyEffects();
+    });
+
+    btnFontIncrease.addEventListener('click', () => {
+        if (fontSize < MAX_FONT_SIZE) {
+            fontSize += FONT_STEP;
+            localStorage.setItem('fontSize', fontSize);
+            applyFontSize();
+        }
+    });
+
+    btnFontDecrease.addEventListener('click', () => {
+        if (fontSize > MIN_FONT_SIZE) {
+            fontSize -= FONT_STEP;
+            localStorage.setItem('fontSize', fontSize);
+            applyFontSize();
+        }
+    });
+
+    btnFontReset.addEventListener('click', () => {
+        fontSize = DEFAULT_FONT_SIZE;
+        localStorage.setItem('fontSize', fontSize);
+        applyFontSize();
+    });
+
+    applyTheme();
+    applyEffects();
+    applyFontSize();
 }
 
-function initTheme() {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        setTheme(savedTheme === 'dark');
-    } else {
-        setTheme(prefersDarkMode.matches);
-    }
-}
-
-themeToggle.addEventListener('click', () => {
-    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    setTheme(!isDark);
-});
-
-prefersDarkMode.addEventListener('change', (e) => {
-    if (!localStorage.getItem('theme')) {
-        setTheme(e.matches);
-    }
-});
+// date & time
 
 function updateDateTime() {
     const now = new Date();
@@ -41,6 +107,8 @@ function initDateTimeClock() {
     updateDateTime();
     setInterval(updateDateTime, 1000);
 }
+
+// fun fact
 
 function initFunFact() {
     const funFactWidget = document.getElementById('fun-fact');
@@ -236,8 +304,10 @@ function initTodoList() {
     renderTodos();
 }
 
+// loader
+
 document.addEventListener('DOMContentLoaded', function() {
-    initTheme();
+    initAccessibility();
     initDateTimeClock();
     initFunFact();
     initBiorhythm();
