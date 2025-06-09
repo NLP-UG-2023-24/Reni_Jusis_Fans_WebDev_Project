@@ -354,7 +354,7 @@ body {
     }
 }
 
-.footer {
+footer {
     margin-top: 3rem;
     padding: 1.5rem 0;
     text-align: center;
@@ -363,13 +363,8 @@ body {
     border-top: 1px solid var(--border);
     background-color: var(--card-bg);
     box-shadow: 0 -2px 10px var(--shadow);
-}
-
-.footer a {
-    color: var(--primary);
-    text-decoration: none;
-    font-weight: 500;
-}
+    width: 100%;
+  }
 
 .modal {
     display: none;
