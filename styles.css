@@ -421,3 +421,15 @@ body {
         opacity: 1;
     }
 }
+
+/*
+  disable animations for users with "reduce motion" setting on
+*/
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
