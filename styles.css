@@ -345,6 +345,12 @@ body {
     .widget {
         padding: 1rem;
     }
+
+    .accessibility-controls {
+        flex-wrap: wrap; 
+        justify-content: flex-start;
+        gap: 6px;
+    }
 }
 
 .footer {
