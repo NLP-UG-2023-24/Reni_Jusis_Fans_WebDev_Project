@@ -146,6 +146,7 @@ body {
     width: 24px;
     height: 24px;
     fill: var(--primary);
+    stroke: var(--primary);
 }
 
 .datetime-display {
