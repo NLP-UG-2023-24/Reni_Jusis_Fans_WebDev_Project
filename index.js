@@ -112,26 +112,153 @@ function initBiorhythm() {
     calculateButton.addEventListener('click', updateBiorhythms);
 }
 
+// todo function A RIGHT MESS but it works!
+
+function initTodoList() {
+    const todoInput = document.getElementById('todo-input');
+    const addTodoBtn = document.getElementById('add-todo-btn');
+    const todoListUL = document.getElementById('todo-list');
+    const deleteAllBtn = document.getElementById('delete-all-btn');
+
+    if (!todoInput || !addTodoBtn || !todoListUL || !deleteAllBtn) {
+        console.warn("Todo list elements not found. Skipping initTodoList.");
+        return;
+    }
+
+    let todos = JSON.parse(localStorage.getItem('todos')) || [];
+
+    const saveTodos = () => {
+        localStorage.setItem('todos', JSON.stringify(todos));
+    };
+
+    const renderTodos = () => {
+        todoListUL.innerHTML = '';
+
+        if (todos.length === 0) {
+            const emptyLi = document.createElement('li');
+            emptyLi.textContent = 'No tasks yet.';
+            emptyLi.style.textAlign = 'center';
+            emptyLi.style.opacity = '0.7';
+            todoListUL.appendChild(emptyLi);
+        } else {
+            todos.forEach((todo, index) => {
+                const li = document.createElement('li');
+                li.className = 'todo-item';
+                if (todo.completed) {
+                    li.classList.add('completed');
+                }
+
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.checked = todo.completed;
+                checkbox.addEventListener('change', () => {
+                    todos[index].completed = !todos[index].completed;
+                    saveTodos();
+                    renderTodos();
+                });
+
+                const textSpan = document.createElement('span');
+                textSpan.className = 'task-text';
+                textSpan.textContent = todo.text;
+                textSpan.addEventListener('click', () => {
+                    const editInput = document.createElement('input');
+                    editInput.type = 'text';
+                    editInput.className = 'edit-input';
+                    editInput.value = todo.text;
+                    li.replaceChild(editInput, textSpan);
+                    editInput.focus();
+
+                    const saveEdit = () => {
+                        const newText = editInput.value.trim();
+                        if (newText) {
+                            todos[index].text = newText;
+                            saveTodos();
+                        }
+                        renderTodos();
+                    };
+
+                    editInput.addEventListener('blur', saveEdit);
+                    editInput.addEventListener('keypress', (e) => {
+                        if (e.key === 'Enter') {
+                            editInput.blur();
+                        }
+                    });
+                });
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'delete-btn';
+                deleteBtn.textContent = '🗑️';
+                deleteBtn.addEventListener('click', () => {
+                    todos.splice(index, 1);
+                    saveTodos();
+                    renderTodos();
+                });
+
+                li.appendChild(checkbox);
+                li.appendChild(textSpan);
+                li.appendChild(deleteBtn);
+                todoListUL.appendChild(li);
+            });
+        }
+
+        const allCompleted = todos.length > 0 && todos.every(todo => todo.completed);
+        deleteAllBtn.style.display = allCompleted ? 'block' : 'none';
+        todoListUL.classList.toggle('hide-delete', allCompleted);
+    };
+
+    const addTodo = () => {
+        const taskText = todoInput.value.trim();
+        if (taskText) {
+            todos.push({
+                text: taskText,
+                completed: false
+            });
+            todoInput.value = '';
+            saveTodos();
+            renderTodos();
+        }
+    };
+
+    const deleteAllCompleted = () => {
+        todos = [];
+        saveTodos();
+        renderTodos();
+    };
+
+    addTodoBtn.addEventListener('click', addTodo);
+    todoInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            addTodo();
+        }
+    });
+    deleteAllBtn.addEventListener('click', deleteAllCompleted);
+
+    renderTodos();
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     initTheme();
     initDateTimeClock();
     initFunFact();
     initBiorhythm();
+    initTodoList();
 });
+
+// modal
+
 const modal = document.getElementById("myModal");
 const span = document.getElementsByClassName("close")[0];
 
 span.onclick = function() {
-  modal.style.display = "none";
+    modal.style.display = "none";
 }
 
 window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
 }
 
 window.onload = () => {
-  modal.style.display = "block";
+    modal.style.display = "block";
 };
-
