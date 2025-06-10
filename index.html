@@ -122,9 +122,16 @@
                             </svg>
                         </div>
                         <div class="weather-info" aria-live="polite">
-                            <div class="weather-temp" id="weather-temp">--°C</div>
-                            <div id="weather-condition">Loading the weather widget...</div>
+                            <div class="weather-temp" id="weather-temp"></div>
+                            <svg class="widget-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"></svg>
+                            
+                           
+
+  
+  <button onclick="getWeather()">Download the weather</button>
+  <div id="weather"></div>
                             <div class="weather-details" id="weather-details"></div>
+                            </svg>
                         </div>
                         <div class="forecast" id="forecast"></div>
                     </div>
@@ -138,9 +145,7 @@
                         </div>
                         <select id="nameday-country-selector" class="country-selector" style="margin-bottom: 1rem;"></select>
                         <ul class="nameday-list" id="nameday-list"></ul>
-                    </div>
-                </div>
-            </div>
+                
     </div>
     </main>
 
