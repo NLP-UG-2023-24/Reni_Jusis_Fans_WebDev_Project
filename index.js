@@ -304,6 +304,83 @@ function initTodoList() {
     renderTodos();
 }
 
+// name days
+
+function initNameDays() {
+    const countrySelector = document.getElementById('nameday-country-selector');
+    const listElement = document.getElementById('nameday-list');
+
+    if (!countrySelector || !listElement) return;
+
+    const supportedCountries = {
+        'pl': 'Poland',
+        'us': 'United States',
+        'at': 'Austria',
+        'bg': 'Bulgaria',
+        'cz': 'Czechia',
+        'de': 'Germany',
+        'dk': 'Denmark',
+        'ee': 'Estonia',
+        'es': 'Spain',
+        'fi': 'Finland',
+        'fr': 'France',
+        'gr': 'Greece',
+        'hr': 'Croatia',
+        'hu': 'Hungary',
+        'it': 'Italy',
+        'lt': 'Lithuania',
+        'lv': 'Latvia',
+        'ru': 'Russia',
+        'se': 'Sweden',
+        'sk': 'Slovakia'
+    };
+
+    for (const code in supportedCountries) {
+        const option = document.createElement('option');
+        option.value = code;
+        option.textContent = supportedCountries[code];
+        countrySelector.appendChild(option);
+    }
+
+    const fetchAndDisplayNamedays = async (countryCode) => {
+        listElement.innerHTML = '<li class="nameday-item">Finding today\'s name days...</li>';
+        const url = `https://nameday.abalin.net/api/V2/today/${countryCode}`;
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Network response was not ok');
+
+            const data = await response.json();
+            let namesString = data.data && data.data[countryCode] ? data.data[countryCode] : null;
+
+            if (namesString && namesString.toLowerCase() !== 'n/a') {
+                const names = namesString.split(', ');
+                listElement.innerHTML = '';
+                names.forEach(name => {
+                    const listItem = document.createElement('li');
+                    listItem.className = 'nameday-item';
+                    listItem.textContent = name;
+                    listElement.appendChild(listItem);
+                });
+            } else {
+                listElement.innerHTML = '<li class="nameday-item">No name days found for today.</li>';
+            }
+        } catch (error) {
+            console.error('Error fetching name days:', error);
+            listElement.innerHTML = '<li class="nameday-item">The name day calendar could not be loaded. Please try again later.</li>';
+        }
+    };
+
+    countrySelector.addEventListener('change', (event) => {
+        const newCountryCode = event.target.value;
+        localStorage.setItem('nameDayCountry', newCountryCode);
+        fetchAndDisplayNamedays(newCountryCode);
+    });
+
+    const savedCountry = localStorage.getItem('nameDayCountry') || 'pl';
+    countrySelector.value = savedCountry;
+    fetchAndDisplayNamedays(savedCountry);
+}
+
 // loader
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -312,6 +389,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initFunFact();
     initBiorhythm();
     initTodoList();
+    initNameDays();
 });
 
 // modal
