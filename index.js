@@ -256,6 +256,7 @@ function initTodoList() {
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'delete-btn';
                 deleteBtn.textContent = '🗑️';
+                deleteBtn.setAttribute('aria-label', 'Delete task');
                 deleteBtn.addEventListener('click', () => {
                     todos.splice(index, 1);
                     saveTodos();
