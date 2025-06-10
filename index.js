@@ -332,3 +332,56 @@ window.onclick = function(event) {
 window.onload = () => {
     modal.style.display = "block";
 };
+const apiKey = 'k16AAOdVMWsolqJF4wtTpulACLjWPBtX';
+
+async function getLocationKey(lat, lon) {
+  const url = `https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${apiKey}&q=${lat},${lon}&language=en-en`;
+  const response = await fetch(url);
+  if (!response.ok) throw new Error('Location error');
+  const data = await response.json();
+  return {
+    key: data.Key,
+    name: `${data.LocalizedName}, ${data.AdministrativeArea.LocalizedName}`
+  };
+}
+
+async function getCurrentWeather(locationKey) {
+  const url = `https://dataservice.accuweather.com/currentconditions/v1/${locationKey}?apikey=${apiKey}&language=pl-pl&details=true`;
+  const response = await fetch(url);
+  if (!response.ok) throw new Error('Location error');
+  const data = await response.json();
+  return data[0];
+}
+
+async function getWeather() {
+  const weatherDiv = document.getElementById('weather');
+  weatherDiv.innerHTML = 'loading location...';
+
+  if (!navigator.geolocation) {
+    weatherDiv.innerHTML = 'loading location...';
+
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(async (position) => {
+    try {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+
+      const location = await getLocationKey(lat, lon);
+      const weather = await getCurrentWeather(location.key);
+
+      weatherDiv.innerHTML = `
+        <h2>${location.name}</h2>
+        <p><strong>Temperatura:</strong> ${weather.Temperature.Metric.Value} °C</p>
+        <p><strong>Opis:</strong> ${weather.WeatherText}</p>
+        <p><strong>Wilgotność:</strong> ${weather.RelativeHumidity}%</p>
+        <p><strong>Wiatr:</strong> ${weather.Wind.Speed.Metric.Value} km/h</p>
+      `;
+    } catch (err) {
+      weatherDiv.innerHTML = `<p style="color:red;">mistake: ${err.message}</p>`;
+    }
+  }, () => {
+    weatherDiv.innerHTML = 'Cannot find';
+  });
+}
