@@ -411,12 +411,15 @@ window.onclick = function(event) {
 window.onload = () => {
     modal.style.display = "block";
 };
+
+// weather
+
 const apiKey = 'k16AAOdVMWsolqJF4wtTpulACLjWPBtX';
 
 async function getLocationKey(lat, lon) {
-  const url = `https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${apiKey}&q=${lat},${lon}&language=en-en`;
+  const url = `https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${apiKey}&q=${lat},${lon}&language=en-us`;
   const response = await fetch(url);
-  if (!response.ok) throw new Error('Location error');
+  if (!response.ok) throw new Error('Could not retrieve location data.');
   const data = await response.json();
   return {
     key: data.Key,
@@ -425,19 +428,19 @@ async function getLocationKey(lat, lon) {
 }
 
 async function getCurrentWeather(locationKey) {
-  const url = `https://dataservice.accuweather.com/currentconditions/v1/${locationKey}?apikey=${apiKey}&language=pl-pl&details=true`;
+  const url = `https://dataservice.accuweather.com/currentconditions/v1/${locationKey}?apikey=${apiKey}&language=en-us&details=true`;
   const response = await fetch(url);
-  if (!response.ok) throw new Error('Location error');
+  if (!response.ok) throw new Error('Could not retrieve location data.');
   const data = await response.json();
   return data[0];
 }
 
 async function getWeather() {
   const weatherDiv = document.getElementById('weather');
-  weatherDiv.innerHTML = 'loading location...';
+  weatherDiv.innerHTML = 'Finding your location...';
 
   if (!navigator.geolocation) {
-    weatherDiv.innerHTML = 'loading location...';
+    weatherDiv.innerHTML = 'Finding your location...';
 
     return;
   }
@@ -452,15 +455,15 @@ async function getWeather() {
 
       weatherDiv.innerHTML = `
         <h2>${location.name}</h2>
-        <p><strong>Temperatura:</strong> ${weather.Temperature.Metric.Value} °C</p>
-        <p><strong>Opis:</strong> ${weather.WeatherText}</p>
-        <p><strong>Wilgotność:</strong> ${weather.RelativeHumidity}%</p>
-        <p><strong>Wiatr:</strong> ${weather.Wind.Speed.Metric.Value} km/h</p>
+        <p><strong>Temperature:</strong> ${weather.Temperature.Metric.Value} °C</p>
+        <p><strong>Conditions:</strong> ${weather.WeatherText}</p>
+        <p><strong>Humidity:</strong> ${weather.RelativeHumidity}%</p>
+        <p><strong>Wind:</strong> ${weather.Wind.Speed.Metric.Value} km/h</p>
       `;
     } catch (err) {
-      weatherDiv.innerHTML = `<p style="color:red;">mistake: ${err.message}</p>`;
+      weatherDiv.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
     }
   }, () => {
-    weatherDiv.innerHTML = 'Cannot find';
+    weatherDiv.innerHTML = 'Your location could not be determined. Please enable location services in your browser to get weather updates.';
   });
 }
