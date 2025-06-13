@@ -92,10 +92,15 @@ function initAccessibility() {
 
 // date & time
 
+let countdownInterval;
+let totalSeconds = 0;
+
 function updateDateTime() {
     const now = new Date();
-    document.getElementById('time').textContent = now.toLocaleTimeString();
-    document.getElementById('date').textContent = now.toLocaleDateString(undefined, {
+    const timeEl = document.getElementById('time');
+    const dateEl = document.getElementById('date');
+    if (timeEl) timeEl.textContent = now.toLocaleTimeString();
+    if (dateEl) dateEl.textContent = now.toLocaleDateString(undefined, {
         weekday: 'long',
         year: 'numeric',
         month: 'long',
@@ -103,9 +108,64 @@ function updateDateTime() {
     });
 }
 
+function updateTimerDisplay() {
+    const display = document.getElementById('timer-display');
+    if (!display) return;
+    const minutes = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+    const seconds = (totalSeconds % 60).toString().padStart(2, '0');
+    display.innerHTML = `<span class="math-inline">${minutes}:</span>${seconds}`;
+}
+
+function startPauseTimer() {
+    const startBtn = document.getElementById('timer-start-btn');
+    if (countdownInterval) {
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+        startBtn.textContent = 'Resume';
+    } else {
+        const minutesInput = document.getElementById('timer-minutes');
+        const secondsInput = document.getElementById('timer-seconds');
+
+        if (totalSeconds === 0) {
+             const minutes = parseInt(minutesInput.value, 10) || 0;
+             const seconds = parseInt(secondsInput.value, 10) || 0;
+             totalSeconds = (minutes * 60) + seconds;
+        }
+
+        if (totalSeconds > 0) {
+             countdownInterval = setInterval(() => {
+                totalSeconds--;
+                updateTimerDisplay();
+                if (totalSeconds <= 0) {
+                    clearInterval(countdownInterval);
+                    countdownInterval = null;
+                    alert("Time's up!");
+                    startBtn.textContent = 'Start';
+                }
+            }, 1000);
+            startBtn.textContent = 'Pause';
+        }
+    }
+}
+
+function resetTimer() {
+    clearInterval(countdownInterval);
+    countdownInterval = null;
+    totalSeconds = 0;
+    updateTimerDisplay();
+    document.getElementById('timer-start-btn').textContent = 'Start';
+    document.getElementById('timer-minutes').value = '';
+    document.getElementById('timer-seconds').value = '';
+}
+
 function initDateTimeClock() {
     updateDateTime();
     setInterval(updateDateTime, 1000);
+
+    document.getElementById('timer-start-btn')?.addEventListener('click', startPauseTimer);
+    document.getElementById('timer-reset-btn')?.addEventListener('click', resetTimer);
+
+    updateTimerDisplay();
 }
 
 // fun fact
