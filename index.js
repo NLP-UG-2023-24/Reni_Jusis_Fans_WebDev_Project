@@ -398,18 +398,24 @@ document.addEventListener('DOMContentLoaded', function() {
 const modal = document.getElementById("myModal");
 const span = document.getElementsByClassName("close")[0];
 
-span.onclick = function() {
+function closeModal() {
     modal.style.display = "none";
+    localStorage.setItem("modalShown", "true");
 }
+
+span.onclick = closeModal;
 
 window.onclick = function(event) {
     if (event.target == modal) {
-        modal.style.display = "none";
+        closeModal();
     }
 }
 
 window.onload = () => {
-    modal.style.display = "block";
+    const hasModalBeenShown = localStorage.getItem("modalShown");
+    if (!hasModalBeenShown) {
+        modal.style.display = "block";
+    }
 };
 
 // weather
