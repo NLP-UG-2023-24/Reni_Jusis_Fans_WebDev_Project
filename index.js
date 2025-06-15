@@ -824,7 +824,7 @@ async function initCurrencyExchange() {
 
             let dateMessage = `Rates from: ${lastFetchDate}`;
             if (daysOld >= 1) {
-                dateMessage += ` (${daysOld} day(s) old). Conversion might be out of date.`;
+                dateMessage += ` (${daysOld} day(s) old).`;
                 conversionDateDiv.className = 'conversion-date currency-out-of-date';
             } else {
                 conversionDateDiv.className = 'conversion-date';
