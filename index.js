@@ -639,3 +639,44 @@ async function getWeather() {
     weatherDiv.innerHTML = 'Your location could not be determined. Please enable location services in your browser to get weather updates.';
   });
 }
+
+function toggleBtn() {
+    const Btns = document.querySelector(".btns");
+    const add = document.getElementById("add");
+    const remove = document.getElementById("remove");
+    const btn = document.querySelector(".btns").querySelectorAll("a");
+    Btns.classList.toggle("open");
+  
+    if (Btns.classList.contains("open")) {
+      remove.style.display = "block";
+      add.style.display = "none";
+      btn.forEach((e, i) => {
+        setTimeout(() => {
+          let bottom = 40 * i;
+          e.style.bottom = bottom + "px";
+        }, 100 * i);
+      });
+    } else {
+      add.style.display = "block";
+      remove.style.display = "none";
+      btn.forEach(e => {
+        e.style.bottom = "0px";
+      });
+    }
+  }
+  
+  function openAbout(event) {
+    event.stopPropagation();
+    document.getElementById("about-modal").style.display = "block";
+  }
+  
+  function closeAbout() {
+    document.getElementById("about-modal").style.display = "none";
+  }
+  
+  window.onclick = function(event) {
+    const modal = document.getElementById("about-modal");
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
