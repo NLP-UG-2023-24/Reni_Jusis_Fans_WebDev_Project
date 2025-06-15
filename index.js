@@ -220,9 +220,9 @@ function updateBiorhythms() {
     const intellectual = calculateBiorhythm(daysSinceBirth, 33);
 
     resultsDiv.innerHTML = `
-                <p>Physical: ${(physical * 100).toFixed(1)}%</p>
-                <p>Emotional: ${(emotional * 100).toFixed(1)}%</p>
-                <p>Intellectual: ${(intellectual * 100).toFixed(1)}%</p>
+                <p>💪 Physical: ${(physical * 100).toFixed(1)}%</p>
+                <p>💖 Emotional: ${(emotional * 100).toFixed(1)}%</p>
+                <p>🧠 Intellectual: ${(intellectual * 100).toFixed(1)}%</p>
                 <small>Based on ${daysSinceBirth} days since birth.</small>
             `;
 }
