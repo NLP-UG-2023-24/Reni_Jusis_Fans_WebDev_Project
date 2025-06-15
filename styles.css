@@ -668,14 +668,7 @@ footer {
 .conversion-date {
     font-size: 0.85rem;
     color: var(--text);
-    opacity: 0.7;
     margin-top: 0.5rem;
     text-align: center;
 }
-
-.currency-out-of-date {
-    color: var(--secondary);
-    font-weight: bold;
-}
-
 
