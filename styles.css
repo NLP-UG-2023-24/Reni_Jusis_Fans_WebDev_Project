@@ -592,8 +592,17 @@ footer {
     margin-right: 6px;
   }
   
-  .black-icon {
-    color: #201f20;
+  .contributors .fab.fa-github {
+    color: var(--text);
+    background-color: transparent;
+  }
+  
+  .contributors .fab.fa-github:hover {
+    opacity: 0.8;
+  }
+
+  .fab.fa-github:hover {
+    color: #888;
   }
   
   .close {
