@@ -680,7 +680,7 @@ function toggleBtn() {
       modal.style.display = "none";
     }
   };
- 
+
 function initCalendarConversion() {
     const gregorianDateInput = document.getElementById('gregorian-date');
     const calendarTypeSelect = document.getElementById('calendar-type');
@@ -725,5 +725,4 @@ function initCalendarConversion() {
 document.addEventListener('DOMContentLoaded', function () {
     initCalendarConversion();
 });
-
 
