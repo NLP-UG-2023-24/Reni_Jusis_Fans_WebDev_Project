@@ -487,7 +487,7 @@ footer {
   }
   
   .action {
-    background: rgb(196, 98, 235);
+    background: var(--primary);
     height: 50px;
     width: 50px;
     border-radius: 50%;
@@ -507,7 +507,7 @@ footer {
   }
   
   .action:hover {
-    background-color: rgb(255, 103, 179);
+    background-color: var(--secondary);
   }
   
   .btn {
