@@ -673,9 +673,3 @@ footer {
     text-align: center;
 }
 
-.currency-out-of-date {
-    color: var(--secondary);
-    font-weight: bold;
-}
-
-
