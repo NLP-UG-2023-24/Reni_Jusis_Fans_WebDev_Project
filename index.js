@@ -680,40 +680,50 @@ function toggleBtn() {
       modal.style.display = "none";
     }
   };
- async function convertDate() {
-    const dateInput = document.getElementById("gregorian-date").value;
-    const toCalendar = document.getElementById("calendar-type").value;
-    const resultDiv = document.getElementById("calendar-result");
+ 
+function initCalendarConversion() {
+    const gregorianDateInput = document.getElementById('gregorian-date');
+    const calendarTypeSelect = document.getElementById('calendar-type');
+    const resultDiv = document.getElementById('calendar-result');
 
-    if (!dateInput) {
-        resultDiv.textContent = "Please select a date.";
+    if (!gregorianDateInput || !calendarTypeSelect || !resultDiv) {
+        console.error("Calendar conversion widget elements not found.");
         return;
     }
 
-    const url = `https://calendar-converter.p.rapidapi.com/convert?from=gregorian&to=${toCalendar}&date=${dateInput}`;
+    const convertDate = () => {
+        const dateValue = gregorianDateInput.value;
+        const calendarType = calendarTypeSelect.value;
 
-    const options = {
-        method: 'GET',
-        headers: {
-            'x-rapidapi-key': '66ba9cbc18msh4f4d468baad6b94p11983djsnaded3fcb829c',
-            'x-rapidapi-host': 'calendar-converter.p.rapidapi.com'
+        if (!dateValue) {
+            resultDiv.textContent = 'Choose a date to convert';
+            return;
+        }
+
+        const date = new Date(dateValue + 'T00:00:00');
+
+        try {
+            const options = {
+                calendar: calendarType,
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+            
+            const convertedDate = new Intl.DateTimeFormat(`en-u-ca-${calendarType}`, options).format(date);
+            
+            resultDiv.textContent = convertedDate;
+        } catch (error) {
+            console.error('Error converting date:', error);
+            resultDiv.textContent = 'Conversion for this date/calendar is not supported.';
         }
     };
 
-    try {
-        resultDiv.textContent = "Converting...";
-        const response = await fetch(url, options);
-        const data = await response.json();
-
-        if (data.toCalendarDate) {
-            const { day, month, year } = data.toCalendarDate;
-            resultDiv.textContent = `Converted date: ${day}.${month}.${year}`;
-        } else {
-            resultDiv.textContent = "Conversion failed.";
-        }
-    } catch (error) {
-        console.error(error);
-        resultDiv.textContent = "Error: Unable to convert date.";
-    }
+    gregorianDateInput.addEventListener('input', convertDate);
+    calendarTypeSelect.addEventListener('change', convertDate);
 }
+document.addEventListener('DOMContentLoaded', function () {
+    initCalendarConversion();
+});
+
 
