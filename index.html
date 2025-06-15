@@ -113,17 +113,23 @@
                                 <path d="M19,3H18V1H16V3H8V1H6V3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M19,19H5V8H19V19M12,10.5A2.5,2.5 0 0,0 9.5,13A2.5,2.5 0 0,0 12,15.5A2.5,2.5 0 0,0 14.5,13A2.5,2.5 0 0,0 12,10.5Z"></path>
                             </svg>
                         </div>
-                        <input type="date" id="gregorian-date" class="calendar-input">
-                        <select id="calendar-type" class="calendar-input">
-                            <option value="hebrew">Hebrew</option>
-                            <option value="islamic">Islamic</option>
-                            <option value="chinese">Chinese</option>
-                            <option value="persian">Persian</option>
-                        </select>
-                        <div class="calendar-result" id="calendar-result">
-                            Choose a date to convert
-                        </div>
-                    </div>
+                       
+
+    <input type="date" id="gregorian-date" class="calendar-input">
+    <br>
+    <select id="calendar-type" class="calendar-input">
+        <option value="hebrew">Hebrew</option>
+        <option value="islamic">Islamic</option>
+        <option value="chinese">Chinese</option>
+        <option value="persian">Persian</option>
+    </select>
+    <br>
+    <button onclick="convertDate()" class="calendar-input">Convert</button>
+
+    <div class="calendar-result" id="calendar-result">
+        Choose a date to convert
+    </div>
+    </div>
 
                     <div class="widget">
                         <div class="widget-header">
@@ -201,6 +207,7 @@
       </div>
     </div>
   </div>
+  
                     
     <script src="index.js"></script>
 </body>

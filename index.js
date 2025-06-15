@@ -680,3 +680,40 @@ function toggleBtn() {
       modal.style.display = "none";
     }
   };
+ async function convertDate() {
+    const dateInput = document.getElementById("gregorian-date").value;
+    const toCalendar = document.getElementById("calendar-type").value;
+    const resultDiv = document.getElementById("calendar-result");
+
+    if (!dateInput) {
+        resultDiv.textContent = "Please select a date.";
+        return;
+    }
+
+    const url = `https://calendar-converter.p.rapidapi.com/convert?from=gregorian&to=${toCalendar}&date=${dateInput}`;
+
+    const options = {
+        method: 'GET',
+        headers: {
+            'x-rapidapi-key': '66ba9cbc18msh4f4d468baad6b94p11983djsnaded3fcb829c',
+            'x-rapidapi-host': 'calendar-converter.p.rapidapi.com'
+        }
+    };
+
+    try {
+        resultDiv.textContent = "Converting...";
+        const response = await fetch(url, options);
+        const data = await response.json();
+
+        if (data.toCalendarDate) {
+            const { day, month, year } = data.toCalendarDate;
+            resultDiv.textContent = `Converted date: ${day}.${month}.${year}`;
+        } else {
+            resultDiv.textContent = "Conversion failed.";
+        }
+    } catch (error) {
+        console.error(error);
+        resultDiv.textContent = "Error: Unable to convert date.";
+    }
+}
+
