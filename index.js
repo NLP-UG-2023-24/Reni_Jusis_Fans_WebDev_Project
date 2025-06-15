@@ -557,6 +557,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initTodoList();
     initNameDays();
     initHolidays();
+    initCalendarConversion();
 });
 
 // modal
@@ -680,3 +681,47 @@ function toggleBtn() {
       modal.style.display = "none";
     }
   };
+
+function initCalendarConversion() {
+    const gregorianDateInput = document.getElementById('gregorian-date');
+    const calendarTypeSelect = document.getElementById('calendar-type');
+    const resultDiv = document.getElementById('calendar-result');
+
+    if (!gregorianDateInput || !calendarTypeSelect || !resultDiv) {
+        console.error("Calendar conversion widget elements not found.");
+        return;
+    }
+
+    const convertDate = () => {
+        const dateValue = gregorianDateInput.value;
+        const calendarType = calendarTypeSelect.value;
+
+        if (!dateValue) {
+            resultDiv.textContent = 'Choose a date to convert';
+            return;
+        }
+
+        const date = new Date(dateValue + 'T00:00:00');
+
+        try {
+            const options = {
+                calendar: calendarType,
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+            
+            const convertedDate = new Intl.DateTimeFormat(`en-u-ca-${calendarType}`, options).format(date);
+            
+            resultDiv.textContent = convertedDate;
+        } catch (error) {
+            console.error('Error converting date:', error);
+            resultDiv.textContent = 'Conversion for this date/calendar is not supported.';
+        }
+    };
+
+    gregorianDateInput.addEventListener('input', convertDate);
+    calendarTypeSelect.addEventListener('change', convertDate);
+}
+
+
