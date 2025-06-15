@@ -5,19 +5,21 @@ Our mission is to integrate a wide variety of useful, entertaining, and surprisi
 
 ## 🧩 What InfoSphere Offers:
 
-🗓️ **Interactive Calendar** – Stay on top of your schedule with ease.
+🕰️ Current Date & Time – Instantly check the local date and time.
 
-🌍 **World Time Zones** – Instantly check the current time across multiple countries.
+🎉 Global Holidays – Discover holidays and celebrations from around the world, including quirky and lesser-known events.
 
-☀️ **Weather Updates** – Get accurate, real-time weather data wherever you are.
+💓 Biorhythm Calculator – Enter your birth date and see your personal physical, emotional, and intellectual cycles.
 
-🎉 **Unusual & Fun Holidays** – Discover quirky and lesser-known celebrations from around the world.
+📝 To-Do List – Keep track of your daily tasks, mark them as done, and stay organized.
 
-📅 **Name Days** – Explore name day traditions across different cultures.
+💡 Daily Fun Fact – Feed your curiosity with new, fascinating facts every day.
 
-💡 **Daily Fun Facts** – Feed your curiosity with new, fascinating facts each day.
+📅 Calendar Conversion – Choose a date and convert it to different calendar systems.
 
-🕵️‍♂️ **FBI-Related Trivia** – Learn something intriguing from the archives and public releases.
+☀️ Current Weather – Check accurate, real-time weather updates for your location.
+
+📖 Name Days – Explore name day traditions and listings in various countries.
 
 And this is just the beginning! Our vision is to continuously expand InfoSphere with fresh content, new categories, and even more exciting features that keep users coming back for more.
 
