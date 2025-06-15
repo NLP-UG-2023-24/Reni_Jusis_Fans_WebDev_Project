@@ -546,20 +546,6 @@ function initHolidays() {
   }
 }
 
-
-// loader
-
-document.addEventListener('DOMContentLoaded', function() {
-    initAccessibility();
-    initDateTimeClock();
-    initFunFact();
-    initBiorhythm();
-    initTodoList();
-    initNameDays();
-    initHolidays();
-    initCalendarConversion();
-});
-
 // modal
 
 const modal = document.getElementById("myModal");
@@ -724,4 +710,182 @@ function initCalendarConversion() {
     calendarTypeSelect.addEventListener('change', convertDate);
 }
 
+// currency exchange 
 
+async function initCurrencyExchange() {
+    const fromCurrencySelect = document.getElementById('from-currency');
+    const toCurrencySelect = document.getElementById('to-currency');
+    const amountInput = document.getElementById('amount-input');
+    const convertButton = document.getElementById('convert-currency');
+    const swapButton = document.getElementById('swap-currency');
+    const currencyResultDiv = document.getElementById('currency-result');
+    const conversionDateDiv = document.getElementById('conversion-date');
+
+    let exchangeRates = {};
+    let lastFetchDate = null;
+
+    const getDaysDifference = (date1, date2) => {
+        const oneDay = 24 * 60 * 60 * 1000;
+        const diffDays = Math.round(Math.abs((new Date(date1) - new Date(date2)) / oneDay));
+        return diffDays;
+    };
+
+    async function fetchCurrencyData() {
+        try {
+            currencyResultDiv.textContent = 'Fetching exchange rates...';
+            const response = await fetch('https://api.nbp.pl/api/exchangerates/tables/a?format=json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            
+            if (data && data.length > 0 && data[0].rates) {
+                exchangeRates = {};
+                exchangeRates['PLN'] = 1;
+
+                data[0].rates.forEach(rate => {
+                    exchangeRates[rate.code] = rate.mid;
+                });
+                lastFetchDate = data[0].effectiveDate;
+                localStorage.setItem('exchangeRates', JSON.stringify(exchangeRates));
+                localStorage.setItem('lastFetchDate', lastFetchDate);
+                populateCurrencySelects();
+            } else {
+                currencyResultDiv.textContent = 'Error: Could not parse exchange rate data.';
+            }
+        } catch (error) {
+            console.error('Error fetching currency data:', error);
+            currencyResultDiv.textContent = 'Failed to load exchange rates. Please try again later.';
+        }
+    }
+
+    function populateCurrencySelects() {
+        fromCurrencySelect.innerHTML = '';
+        toCurrencySelect.innerHTML = '';
+
+        const currencies = Object.keys(exchangeRates).sort();
+
+        currencies.forEach(currency => {
+            const optionFrom = document.createElement('option');
+            optionFrom.value = currency;
+            optionFrom.textContent = currency;
+            fromCurrencySelect.appendChild(optionFrom);
+
+            const optionTo = document.createElement('option');
+            optionTo.value = currency;
+            optionTo.textContent = currency;
+            toCurrencySelect.appendChild(optionTo);
+        });
+
+        const savedFromCurrency = localStorage.getItem('fromCurrency') || 'USD';
+        const savedToCurrency = localStorage.getItem('toCurrency') || 'PLN';
+
+        if (currencies.includes(savedFromCurrency)) {
+            fromCurrencySelect.value = savedFromCurrency;
+        } else if (currencies.length > 0) {
+            fromCurrencySelect.value = currencies[0];
+        }
+
+        if (currencies.includes(savedToCurrency)) {
+            toCurrencySelect.value = savedToCurrency;
+        } else if (currencies.length > 1) {
+            toCurrencySelect.value = currencies[1];
+        } else if (currencies.length > 0) {
+            toCurrencySelect.value = currencies[0];
+        }
+    }
+
+    function convertCurrency() {
+        const fromCurrency = fromCurrencySelect.value;
+        const toCurrency = toCurrencySelect.value;
+        const amount = parseFloat(amountInput.value);
+
+        if (isNaN(amount) || amount <= 0) {
+            currencyResultDiv.textContent = 'Please enter a valid amount.';
+            return;
+        }
+
+        if (!exchangeRates[fromCurrency] || !exchangeRates[toCurrency]) {
+            currencyResultDiv.textContent = 'Selected currency rates are not available.';
+            return;
+        }
+
+        const amountInPln = amount * exchangeRates[fromCurrency];
+        const convertedAmount = amountInPln / exchangeRates[toCurrency];
+
+        currencyResultDiv.textContent = `${amount} ${fromCurrency} = ${convertedAmount.toFixed(4)} ${toCurrency}`;
+
+        localStorage.setItem('fromCurrency', fromCurrency);
+        localStorage.setItem('toCurrency', toCurrency);
+        localStorage.setItem('lastConversionAmount', amount);
+
+        if (lastFetchDate) {
+            const today = new Date().toISOString().split('T')[0];
+            const daysOld = getDaysDifference(lastFetchDate, today);
+
+            let dateMessage = `Rates from: ${lastFetchDate}`;
+            if (daysOld >= 1) {
+                dateMessage += ` (${daysOld} day(s) old). Conversion might be out of date.`;
+                conversionDateDiv.className = 'conversion-date currency-out-of-date';
+            } else {
+                conversionDateDiv.className = 'conversion-date';
+            }
+            conversionDateDiv.textContent = dateMessage;
+        } else {
+            conversionDateDiv.textContent = '';
+            conversionDateDiv.className = 'conversion-date';
+        }
+    }
+
+    swapButton.addEventListener('click', () => {
+        const temp = fromCurrencySelect.value;
+        fromCurrencySelect.value = toCurrencySelect.value;
+        toCurrencySelect.value = temp;
+        convertCurrency();
+    });
+
+    convertButton.addEventListener('click', convertCurrency);
+    fromCurrencySelect.addEventListener('change', convertCurrency);
+    toCurrencySelect.addEventListener('change', convertCurrency);
+    amountInput.addEventListener('input', convertCurrency);
+
+    const storedRates = localStorage.getItem('exchangeRates');
+    const storedLastFetchDate = localStorage.getItem('lastFetchDate');
+
+    if (storedRates && storedLastFetchDate) {
+        exchangeRates = JSON.parse(storedRates);
+        lastFetchDate = storedLastFetchDate;
+        populateCurrencySelects();
+        const today = new Date().toISOString().split('T')[0];
+        const daysOld = getDaysDifference(lastFetchDate, today);
+
+        if (daysOld >= 1) { 
+            fetchCurrencyData();
+        } else {
+            convertCurrency();
+        }
+    } else {
+        fetchCurrencyData();
+    }
+
+    const savedAmount = localStorage.getItem('lastConversionAmount');
+    if (savedAmount) {
+        amountInput.value = savedAmount;
+    } else {
+        amountInput.value = 1;
+    }
+}
+
+// loader
+
+document.addEventListener('DOMContentLoaded', function() {
+    initAccessibility();
+    initDateTimeClock();
+    initFunFact();
+    initBiorhythm();
+    initTodoList();
+    initNameDays();
+    initHolidays();
+    initCalendarConversion();
+    initCurrencyExchange();
+});
