@@ -732,7 +732,6 @@ async function initCurrencyExchange() {
 
     async function fetchCurrencyData() {
         try {
-            currencyResultDiv.textContent = 'Fetching exchange rates...';
             const response = await fetch('https://api.nbp.pl/api/exchangerates/tables/a?format=json');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
