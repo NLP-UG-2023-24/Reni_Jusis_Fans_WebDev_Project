@@ -557,6 +557,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initTodoList();
     initNameDays();
     initHolidays();
+    initCalendarConversion();
 });
 
 // modal
@@ -722,7 +723,5 @@ function initCalendarConversion() {
     gregorianDateInput.addEventListener('input', convertDate);
     calendarTypeSelect.addEventListener('change', convertDate);
 }
-document.addEventListener('DOMContentLoaded', function () {
-    initCalendarConversion();
-});
+
 
