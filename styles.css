@@ -476,3 +476,147 @@ footer {
     transition: none !important;
   }
 }
+
+/* 
+    floating action button 
+*/
+.fabs {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+  }
+  
+  .action {
+    background: rgb(196, 98, 235);
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    box-shadow: 0 5px 7px 0px gray;
+    transition: background-color 0.4s ease-in-out;
+    position: relative;
+  }
+  
+  .action i {
+    position: absolute;
+    color: white;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 25px;
+    cursor: pointer;
+  }
+  
+  .action:hover {
+    background-color: rgb(255, 103, 179);
+  }
+  
+  .btn {
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background: #333;
+    color: white;
+    text-align: center;
+    line-height: 40px;
+    transition: 0.3s;
+  }
+  
+  .btn i {
+    font-size: 20px;
+  }
+
+  .btns {
+    position: absolute;
+    bottom: 0px;
+    margin-bottom: 5px;
+    height: 40px;
+    width: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+    transition: 0.3s ease-in-out;
+  }
+  
+  .btns.open {
+    bottom: 50px;
+  }
+  
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 99;
+    padding-top: 80px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+  
+  .modal-content {
+    background-color: var(--card-bg, #fff);
+    margin: auto;
+    padding: 20px;
+    border: 1px solid var(--border, #ccc);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    color: var(--text, #333);
+    box-shadow: 0 4px 12px var(--shadow, rgba(0,0,0,0.2));
+    position: relative;
+  }
+  
+  .modal-content h2 {
+    margin-bottom: 1rem;
+    color: var(--primary, #444);
+  }
+  
+  .modal-content p {
+    margin-bottom: 1rem;
+  }
+  
+  .modal-content .contributors a {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: var(--primary, #444);
+    font-weight: 600;
+  }
+  
+  .modal-content .contributors a i {
+    margin-right: 6px;
+  }
+  
+  .black-icon {
+    color: #201f20;
+  }
+  
+  .close {
+    color: var(--secondary, #999);
+    position: absolute;
+    top: 12px;
+    right: 18px;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  
+  .about-btn:hover::after {
+    content: 'About Us';
+    position: absolute;
+    top: 50%;
+    right: 50px;
+    transform: translateY(-50%);
+    background: var(--card-bg, #fff);
+    color: var(--text, #1f1e1e);
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid var(--border, #ccc);
+    white-space: nowrap;
+    font-size: 0.85rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
