@@ -502,6 +502,10 @@ footer {
     font-size: 25px;
     cursor: pointer;
   }
+
+[data-theme="high-contrast"] .action i {
+      color: var(--background);
+  }
   
   .action:hover {
     background-color: var(--secondary);
