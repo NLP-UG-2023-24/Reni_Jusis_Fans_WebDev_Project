@@ -21,6 +21,9 @@ Our mission is to integrate a wide variety of useful, entertaining, and surprisi
 
 📖 Name Days – Explore name day traditions and listings in various countries.
 
+💱 Currency Exchange Rates – Get up-to-date exchange rates for various world currencies and convert amounts in real time.
+
+
 And this is just the beginning! Our vision is to continuously expand InfoSphere with fresh content, new categories, and even more exciting features that keep users coming back for more.
 
 ## 🚀 Stay tuned for updates and feel free to contribute – we're building the InfoSphere together!
