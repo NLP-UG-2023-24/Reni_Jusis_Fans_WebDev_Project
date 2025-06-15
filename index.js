@@ -445,106 +445,111 @@ function initNameDays() {
 // holidays
 
 function initHolidays() {
-  const countrySelector = document.getElementById("country-selector");
-  const holidayList = document.getElementById("holiday-list");
-
-  if (!countrySelector || !holidayList) return;
-
-  const countries = [
-    { code: "CH", name: "Switzerland" },
-    { code: "US", name: "United States" },
-    { code: "DE", name: "Germany" },
-    { code: "FR", name: "France" },
-    { code: "PL", name: "Poland" },
-    { code: "ES", name: "Spain" },
-    { code: "IT", name: "Italy" },
-    { code: "AT", name: "Austria" },
-    { code: "CZ", name: "Czech Republic" },
-    { code: "SK", name: "Slovakia" },
-    { code: "GB", name: "United Kingdom" },
-    { code: "IE", name: "Ireland" },
-    { code: "NO", name: "Norway" },
-    { code: "SE", name: "Sweden" },
-    { code: "FI", name: "Finland" },
-    { code: "NL", name: "Netherlands" },
-    { code: "BE", name: "Belgium" },
-    { code: "DK", name: "Denmark" },
-    { code: "GR", name: "Greece" },
-    { code: "PT", name: "Portugal" }
-  ];
-
-  countries.forEach(country => {
-    const option = document.createElement("option");
-    option.value = country.code;
-    option.textContent = country.name;
-    countrySelector.appendChild(option);
-  });
-
-  const savedCountry = localStorage.getItem("selectedCountry");
-  if (savedCountry) {
-    countrySelector.value = savedCountry;
-    fetchHolidays(savedCountry);
-  }
-
-  countrySelector.addEventListener("change", () => {
-    const selectedCountry = countrySelector.value;
-    localStorage.setItem("selectedCountry", selectedCountry);
-    fetchHolidays(selectedCountry);
-  });
-
-  async function fetchHolidays(selectedCountry) {
-    holidayList.innerHTML = "";
-
-    if (!selectedCountry) return;
-
-    const loadingLi = document.createElement("li");
-    loadingLi.className = "holiday-item";
-    loadingLi.textContent = "Finding today's public holiday...";
-    holidayList.appendChild(loadingLi);
-
-    const today = new Date().toISOString().split("T")[0];
-
-    try {
-      const response = await fetch(
-        `https://openholidaysapi.org/PublicHolidays?countryIsoCode=${selectedCountry}&languageIsoCode=EN&validFrom=${today}&validTo=${today}`,
-        {
-          headers: {
-            accept: "application/json"
+    const countrySelector = document.getElementById("country-selector");
+    const holidayList = document.getElementById("holiday-list");
+  
+    if (!countrySelector || !holidayList) return;
+  
+    const countries = [
+      { code: "CH", name: "Switzerland" },
+      { code: "US", name: "United States" },
+      { code: "DE", name: "Germany" },
+      { code: "FR", name: "France" },
+      { code: "PL", name: "Poland" },
+      { code: "ES", name: "Spain" },
+      { code: "IT", name: "Italy" },
+      { code: "AT", name: "Austria" },
+      { code: "CZ", name: "Czech Republic" },
+      { code: "SK", name: "Slovakia" },
+      { code: "GB", name: "United Kingdom" },
+      { code: "IE", name: "Ireland" },
+      { code: "NO", name: "Norway" },
+      { code: "SE", name: "Sweden" },
+      { code: "FI", name: "Finland" },
+      { code: "NL", name: "Netherlands" },
+      { code: "BE", name: "Belgium" },
+      { code: "DK", name: "Denmark" },
+      { code: "GR", name: "Greece" },
+      { code: "PT", name: "Portugal" }
+    ];
+  
+    countries.forEach(country => {
+      const option = document.createElement("option");
+      option.value = country.code;
+      option.textContent = country.name;
+      countrySelector.appendChild(option);
+    });
+  
+    const savedCountry = localStorage.getItem("selectedCountry");
+    if (savedCountry) {
+      countrySelector.value = savedCountry;
+      fetchHolidays(savedCountry);
+    }
+  
+    countrySelector.addEventListener("change", () => {
+      const selectedCountry = countrySelector.value;
+      localStorage.setItem("selectedCountry", selectedCountry);
+      fetchHolidays(selectedCountry);
+    });
+  
+    async function fetchHolidays(selectedCountry) {
+      holidayList.innerHTML = "";
+  
+      if (!selectedCountry) return;
+  
+      const loadingLi = document.createElement("li");
+      loadingLi.className = "holiday-item";
+      loadingLi.textContent = "Fetching holidays...";
+      holidayList.appendChild(loadingLi);
+  
+      const today = new Date();
+      const startDate = today.toISOString().split("T")[0];
+      const endDate = new Date(today.setDate(today.getDate() + 7)).toISOString().split("T")[0];
+  
+      try {
+        const response = await fetch(
+          `https://openholidaysapi.org/PublicHolidays?countryIsoCode=${selectedCountry}&languageIsoCode=EN&validFrom=${startDate}&validTo=${endDate}`,
+          {
+            headers: {
+              accept: "application/json"
+            }
           }
+        );
+  
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
         }
-      );
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const holidays = await response.json();
-      holidayList.innerHTML = "";
-
-      if (holidays.length === 0) {
+  
+        const holidays = await response.json();
+        holidayList.innerHTML = "";
+  
+        if (holidays.length === 0) {
+          const li = document.createElement("li");
+          li.className = "holiday-item";
+          li.textContent = "No upcoming public holidays in the next 7 days.";
+          holidayList.appendChild(li);
+          return;
+        }
+  
+        holidays.forEach(holiday => {
+          const li = document.createElement("li");
+          li.className = "holiday-item";
+          const holidayDate = new Date(holiday.startDate).toLocaleDateString('en-US', {
+              year: 'numeric', month: 'short', day: 'numeric'
+          });
+          li.textContent = `${holiday.name[0].text} (${holidayDate})`;
+          holidayList.appendChild(li);
+        });
+      } catch (error) {
+        console.error("Error fetching holidays:", error);
+        holidayList.innerHTML = "";
         const li = document.createElement("li");
         li.className = "holiday-item";
-        li.textContent = "No public holiday today.";
+        li.textContent = "Failed to load holidays. Try again later.";
         holidayList.appendChild(li);
-        return;
       }
-
-      holidays.forEach(holiday => {
-        const li = document.createElement("li");
-        li.className = "holiday-item";
-        li.textContent = holiday.name.text;
-        holidayList.appendChild(li);
-      });
-    } catch (error) {
-      console.error("Error fetching holidays:", error);
-      holidayList.innerHTML = "";
-      const li = document.createElement("li");
-      li.className = "holiday-item";
-      li.textContent = "Failed to load holidays. Try again later.";
-      holidayList.appendChild(li);
     }
   }
-}
 
 // modal
 
