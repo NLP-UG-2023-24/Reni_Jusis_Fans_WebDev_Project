@@ -464,9 +464,8 @@ footer {
     }
 }
 
-/*
-  disable animations for users with "reduce motion" setting on
-*/
+/* disable animations for users with "reduce motion" setting on */
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -476,9 +475,8 @@ footer {
   }
 }
 
-/* 
-    floating action button 
-*/
+/* floating action button */
+
 .fabs {
     position: fixed;
     right: 20px;
@@ -619,3 +617,65 @@ footer {
     font-size: 0.85rem;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
+
+/* currency exchange css */
+
+.currency-exchange-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.currency-selectors {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.currency-select, .currency-input {
+    flex-grow: 1;
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background-color: var(--card-bg);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.swap-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    transition: transform 0.2s ease-in-out;
+}
+
+.swap-button svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--primary);
+}
+
+.swap-button:hover {
+    transform: rotate(180deg);
+}
+
+.conversion-date {
+    font-size: 0.85rem;
+    color: var(--text);
+    opacity: 0.7;
+    margin-top: 0.5rem;
+    text-align: center;
+}
+
+.currency-out-of-date {
+    color: var(--secondary);
+    font-weight: bold;
+}
+
+
