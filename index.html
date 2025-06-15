@@ -166,6 +166,42 @@
         </div>
 
     </div>
+
+    <div class="fabs" onclick="toggleBtn()">
+    <div class="action">
+      <i class="fas fa-plus" id="add"></i>
+      <i class="fas fa-times" id="remove" style="display: none"></i>
+    </div>
+  
+    <div class="btns">
+      <a href="#" class="btn about-btn" title="About Us" onclick="openAbout(event)">
+        <i class="fas fa-users"></i>
+      </a>
+    </div>
+  </div>
+  
+  <div id="about-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeAbout()">&times;</span>
+      <h2>About Us</h2>
+      <p>
+        We’re a group of passionate Natural Language Processing students who built this application to explore APIs, web design, and playful data visualization.<br><br>
+        <strong>Meet the team:</strong>
+      </p>
+      <div class="contributors">
+        <a href="https://github.com/wirowanie800" target="_blank">
+          <i class="fab fa-github black-icon"></i> Michał
+        </a>
+        <a href="https://github.com/poladdd" target="_blank">
+          <i class="fab fa-github black-icon"></i> Pola
+        </a>
+        <a href="https://github.com/weronikaszatanik1" target="_blank">
+          <i class="fab fa-github black-icon"></i> Weronika
+        </a>
+      </div>
+    </div>
+  </div>
+                    
     <script src="index.js"></script>
 </body>
 
