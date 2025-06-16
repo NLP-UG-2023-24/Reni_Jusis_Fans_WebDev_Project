@@ -673,6 +673,39 @@ function toggleBtn() {
     }
   };
 
+function openProject(event) {
+    event.stopPropagation();
+    document.getElementById("project-modal").style.display = "block";
+  }
+  
+  function closeProject() {
+    document.getElementById("project-modal").style.display = "none";
+  }
+  
+  function openContact(event) {
+    event.stopPropagation();
+    document.getElementById("contact-modal").style.display = "block";
+  }
+  
+  function closeContact() {
+    document.getElementById("contact-modal").style.display = "none";
+  }
+  
+  window.onclick = function(event) {
+    const aboutModal = document.getElementById("about-modal");
+    const projectModal = document.getElementById("project-modal");
+    const contactModal = document.getElementById("contact-modal");
+    if (event.target == aboutModal) {
+      aboutModal.style.display = "none";
+    }
+    if (event.target == projectModal) {
+      projectModal.style.display = "none";
+    }
+    if (event.target == contactModal) {
+      contactModal.style.display = "none";
+    }
+  };
+
 function initCalendarConversion() {
     const gregorianDateInput = document.getElementById('gregorian-date');
     const calendarTypeSelect = document.getElementById('calendar-type');
