@@ -202,9 +202,15 @@
       <i class="fas fa-times" id="remove" style="display: none"></i>
     </div>
   
-    <div class="btns">
+   <div class="btns">
       <a href="#" class="btn about-btn" title="About Us" onclick="openAbout(event)">
         <i class="fas fa-users"></i>
+      </a>
+      <a href="#" class="btn project-btn" title="About Project" onclick="openProject(event)">
+        <i class="fas fa-lightbulb"></i>
+      </a>
+      <a href="#" class="btn contact-btn" title="Contact" onclick="openContact(event)">
+        <i class="fas fa-envelope"></i>
       </a>
     </div>
   </div>
@@ -228,6 +234,44 @@
           <i class="fab fa-github"></i> Weronika
         </a>
       </div>
+    </div>
+  </div>
+
+<div id="project-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeProject()">&times;</span>
+      <h2>About Project</h2>
+      <p>
+        <strong>InfoSphere</strong> is a fresh, competitive take on the traditional start page.  
+        Our mission is to offer a visually appealing, highly functional hub for daily tools and information.<br><br>
+        🧩 <strong>What InfoSphere Offers:</strong><br>
+        🕰️ Current Date & Time<br>
+        🎉 Global Holidays<br>
+        💓 Biorhythm Calculator<br>
+        📝 To-Do List<br>
+        💡 Daily Fun Fact<br>
+        📅 Calendar Conversion<br>
+        ☀️ Current Weather<br>
+        📖 Name Days<br>
+        💱 Currency Exchange Rates<br>
+        Designed for everyday convenience, InfoSphere brings useful and playful tools into one accessible interface.
+      </p>
+    </div>
+  </div>
+  
+  <div id="contact-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeContact()">&times;</span>
+      <h2>Contact Us</h2>
+      <p>
+        Have feedback, questions, or ideas? We’d love to hear from you!
+      </p>
+      <form action="mailto:weronika.szatanik@onet.pl" method="post" enctype="text/plain">
+        <input type="text" name="name" placeholder="Your Name" required style="width:100%; padding:8px; margin-bottom:8px; border:1px solid var(--border); border-radius:6px;">
+        <input type="email" name="email" placeholder="Your Email" required style="width:100%; padding:8px; margin-bottom:8px; border:1px solid var(--border); border-radius:6px;">
+        <textarea name="message" placeholder="Your Message" required style="width:100%; padding:8px; margin-bottom:8px; border:1px solid var(--border); border-radius:6px; height:80px;"></textarea>
+        <button type="submit" style="padding:10px 16px; background:var(--primary); color:white; border:none; border-radius:6px; cursor:pointer;">Send</button>
+      </form>
     </div>
   </div>
   
